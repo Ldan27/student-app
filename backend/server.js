@@ -1,12 +1,15 @@
 import express from "express";
 import studentApi from "./routes/studentRoute.js";
 import dotenv from "dotenv";
+import ConnectDB from "./config/db.js";
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
 dotenv.config();
 
 const port = process.env.PORT || 4000;
 
 const app = express();
+
+ConnectDB();
 
 // route Api
 app.use("/api/student", studentApi);
