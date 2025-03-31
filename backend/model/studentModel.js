@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const studentSchema = mongoose.Schema(
   {
@@ -24,6 +25,15 @@ const studentSchema = mongoose.Schema(
   }
 );
 
-const student = mongoose.model("Student", studentSchema);
+studentSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
 
-export default student;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+const Student = mongoose.model("Student", studentSchema);
+
+export default Student;

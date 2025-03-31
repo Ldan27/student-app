@@ -11,6 +11,10 @@ const app = express();
 
 ConnectDB();
 
+// Middleware for parsing raw json and urlEncoded for forms
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // route Api
 app.use("/api/student", studentApi);
 

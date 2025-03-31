@@ -1,8 +1,27 @@
+import Student from "../model/studentModel.js";
+
 // @desc   create  the student
 // route   POST /api/student
 // access  Private/Admin
-const createStudent = (req, res) => {
-  res.send("student created!!!");
+const createStudent = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const student = await Student.create({
+    name,
+    email,
+    password,
+  });
+
+  if (student) {
+    res.status(201).json({
+      _id: student._id,
+      name: student.name,
+      email: student.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid student data");
+  }
 };
 
 // @desc   student or Admin authenticate and get token
