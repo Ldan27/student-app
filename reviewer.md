@@ -6,6 +6,7 @@
 - how to handle CastError and ObjectId
 - how to make stack trace
 - how to chain on one route that have two method
+- install async handler for express to allow us to use async await and not using try catch all the time
 
 # 2 how to setup our database
 
@@ -54,6 +55,12 @@
 # how to protect our route
 
 1 create the authMiddleware
+
+2 we're gonna need to parse our cookie using the package called cookie-parser
+
+# how to get user
+
+# how to update user
 
 # seconde part frontend
 

@@ -18,6 +18,8 @@ const studentSchema = mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {
@@ -33,6 +35,10 @@ studentSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+studentSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const Student = mongoose.model("Student", studentSchema);
 
