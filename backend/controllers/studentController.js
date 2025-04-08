@@ -40,6 +40,7 @@ const userAuth = asyncHandler(async (req, res) => {
       _id: student._id,
       name: student.name,
       email: student.email,
+      isAdmin: student.isAdmin,
     });
   } else {
     res.status(401);

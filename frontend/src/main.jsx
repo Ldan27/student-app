@@ -12,11 +12,25 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen.jsx";
+import LoginScreen from "./screens/LoginScreen.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import ProfileScreen from "./screens/ProfileScreen.jsx";
+import PrivateAdminRoute from "./components/PrivateAdminRoute.jsx";
+import AdminRoute from "./Admin/AdminRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="/login" element={<LoginScreen />} />
+      {/* PrivateRoute */}
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
+      {/* Private Route for Admin */}
+      <Route path="" element={<PrivateAdminRoute />}>
+        <Route path="/studentsInfo" element={<AdminRoute />} />
+      </Route>
     </Route>
   )
 );

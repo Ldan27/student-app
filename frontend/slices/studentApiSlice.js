@@ -37,19 +37,19 @@ const studentApiSlice = apiSlice.injectEndpoints({
     }),
     updateStudent: builder.mutation({
       query: (data) => ({
-        url: `${STUDENT_URL}/:id`,
+        url: `${STUDENT_URL}/${data.studentId}`,
         method: "PUT",
         body: data,
       }),
     }),
     getStudentById: builder.query({
-      query: () => ({
-        url: `${STUDENT_URL}/:id`,
+      query: (studentId) => ({
+        url: `${STUDENT_URL}/${studentId}`,
       }),
     }),
     deleteStudent: builder.mutation({
-      query: () => ({
-        url: `${STUDENT_URL}/:id`,
+      query: (studentId) => ({
+        url: `${STUDENT_URL}/${studentId}`,
         method: "DELETE",
       }),
     }),
