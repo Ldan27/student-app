@@ -114,22 +114,35 @@ const getAllStudent = asyncHandler(async (req, res) => {
 });
 
 // @desc   get student by id
-// route   GET /api/student/:id
+// route   POST /api/student/search
 // access  Private/Admin
-const getStudentById = asyncHandler(async (req, res) => {
-  const student = await Student.findById(req.params.id).select("-password");
+const getStudentByName = asyncHandler(async (req, res) => {
+  const { name } = req.body;
 
-  if (student) {
-    const studentFound = {
-      _id: student._id,
-      name: student.name,
-      email: student.email,
-    };
+  try {
+    if (!name) {
+      res.status(400);
+      throw new Error("name required!!!");
+    }
 
-    res.status(200).json(studentFound);
-  } else {
-    res.status(404);
-    throw new Error("Student not Found");
+    const student = await Student.findOne({
+      name: { $regex: name, $options: "i" },
+      isAdmin: false, // recherche partielle et insensible à la casse
+    });
+
+    if (student) {
+      res.status(200).json({
+        _id: student._id,
+        name: student.name,
+        email: student.email,
+      });
+    } else {
+      res.status(404);
+      throw new Error("Student Not Found");
+    }
+  } catch (error) {
+    res.status(500);
+    throw new Error("Server Error");
   }
 });
 
@@ -153,6 +166,20 @@ const updateStudent = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error("student not found");
+  }
+});
+
+// @desc   get student by Id
+// route   GET /api/student/:id
+// access  Private/Admin
+const FindByIdStudent = asyncHandler(async (req, res) => {
+  const student = await Student.findById(req.params.id).select("-password");
+
+  if (student) {
+    res.status(200).json({ msg: "Student found" });
+  } else {
+    res.status(404);
+    throw new Error("Student not Found!!!");
   }
 });
 
@@ -184,7 +211,8 @@ export {
   getStudentProfile,
   updateStudentProfile,
   getAllStudent,
-  getStudentById,
+  getStudentByName,
   updateStudent,
   deleteStudent,
+  FindByIdStudent,
 };

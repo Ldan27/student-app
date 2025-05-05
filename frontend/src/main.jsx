@@ -16,20 +16,24 @@ import LoginScreen from "./screens/LoginScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
 import PrivateAdminRoute from "./components/PrivateAdminRoute.jsx";
-import AdminRoute from "./Admin/AdminRoute.jsx";
+import StudentList from "./Admin/StudentList.jsx";
+import CreateStudent from "./Admin/CreateStudent.jsx";
+import UpdateStudent from "./Admin/UpdateStudent.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
-      {/* PrivateRoute */}
+      {/* Private Route */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
       </Route>
       {/* Private Route for Admin */}
       <Route path="" element={<PrivateAdminRoute />}>
-        <Route path="/studentsInfo" element={<AdminRoute />} />
+        <Route path="/studentsInfo" element={<StudentList />} />
+        <Route path="/studentsInfo/create" element={<CreateStudent />} />
+        <Route path="/studentsInfo/:id/update" element={<UpdateStudent />} />
       </Route>
     </Route>
   )

@@ -6,9 +6,10 @@ import {
   getStudentProfile,
   updateStudentProfile,
   getAllStudent,
-  getStudentById,
+  getStudentByName,
   updateStudent,
   deleteStudent,
+  FindByIdStudent,
 } from "../controllers/studentController.js";
 import { protect, Admin } from "../middleware/authMiddleware.js";
 
@@ -26,8 +27,9 @@ router
   .get(protect, Admin, getAllStudent);
 router
   .route("/:id")
+  .get(protect, Admin, FindByIdStudent)
   .put(protect, Admin, updateStudent)
-  .get(protect, Admin, getStudentById)
   .delete(protect, Admin, deleteStudent);
+router.route("/search").post(protect, Admin, getStudentByName);
 
 export default router;

@@ -42,6 +42,13 @@ const studentApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getStudentByName: builder.mutation({
+      query: (name) => ({
+        url: `${STUDENT_URL}/search`,
+        method: "POST",
+        body: name,
+      }),
+    }),
     getStudentById: builder.query({
       query: (studentId) => ({
         url: `${STUDENT_URL}/${studentId}`,
@@ -63,6 +70,7 @@ export const {
   useGetAllStudentQuery,
   useCreateStudentMutation,
   useUpdateStudentMutation,
-  useGetStudentByIdQuery,
   useDeleteStudentMutation,
+  useGetStudentByNameMutation,
+  useGetStudentByIdQuery,
 } = studentApiSlice;
