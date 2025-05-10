@@ -10,4 +10,7 @@ services:
         value: production
       - key: NODE_VERSION
         value: 18
+      - key: NPM_CONFIG_PRODUCTION
+        value: false
+
       # Ajoute ici d'autres variables comme MONGO_URI, JWT_SECRET, etc.
